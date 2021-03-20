@@ -42,9 +42,10 @@ const ModelFilter = (props) => (
 export const ModelList = props => (
     <List {...props} filters={<ModelFilter />}>
         <Datagrid rowClick="edit">
-            <TextField source="name" />
-            <RichTextField source="description" />
-            <NumberField source="colors_num" />
+            <TextField source="name" label="Название"/>
+            <RichTextField source="description" label="Описание" />
+            <NumberField source="colors_num" label="Количество цветов"/>
+            <TextField source="print_time" label="Время печати, минут" />
             <ShowButton label="" />
             <EditButton label="" />
             <DeleteButton label="" redirect={false} />
@@ -57,7 +58,10 @@ export const ModelShow = (props) => (
         <SimpleShowLayout>
             <TextField source="name" label="Название" />
             <NumberField source="colors_num" label="Количество цветов" />
-            <TextField source="description" label="Описание" />
+            <RichTextField source="description" label="Описание" />
+            <TextField source="print_time" label="Время печати, минут" />
+            <TextField source="pieces_num" label="Количество изделий, шт." />
+            <TextField source="piece_size" label="Габариты" />
             <TextField source="createdby" label="Кем добавлено" />
             <DateField source="createdate" label="Дата создания" showTime={true} />
             <DateField source="lastupdate" label="Дата изменения" showTime={true} />
@@ -82,9 +86,13 @@ export const ModelCreate = (props) => (
         <SimpleForm>
             <TextInput source="name" label="Название" />
             <RichTextInput source="description" label="Описание" />
+            <TextInput source="print_time" label="Время печати, минут" />
+            <TextInput source="pieces_num" label="Количество изделий, шт." />
+            <TextInput source="piece_size" label="Габариты" />
+
             <SelectInput source="colors_num" label="Количество цветов" choices={[
-                { id: "1", name: "1" },
-                { id: "2", name: "2" },
+                { id: "Одноцветная", name: "Одноцветная" },
+                { id: "Двухцветная", name: "Двухцветная" },
             ]} />
             <ArrayInput source="files">
                 <SimpleFormIterator>
@@ -111,14 +119,17 @@ export const ModelEdit = (props) => (
         <SimpleForm>
             <TextInput source="name" label="Название" />
             <RichTextInput source="description" label="Описание" />
+            <TextInput source="print_time" label="Время печати, минут" />
+            <TextInput source="pieces_num" label="Количество изделий, шт." />
+            <TextInput source="piece_size" label="Габариты" />
             <SelectInput source="colors_num" label="Количество цветов" choices={[
-                { id: "1", name: "1" },
-                { id: "2", name: "2" },
+                { id: "Одноцветная", name: "Одноцветная" },
+                { id: "Двухцветная", name: "Двухцветная" },
             ]} />
             <ArrayInput source="files">
                 <SimpleFormIterator>
                     <FileInput source="file" label="Файл">
-                        <FileField source="src" title="title" />
+                        <FileField source="src" title="title"/>
                     </FileInput>
                     <TextInput source="name" label="Название файла" />
                 </SimpleFormIterator>

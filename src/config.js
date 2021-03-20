@@ -16,6 +16,7 @@ const firebaseConfig = {
 
 const reactAdminFirebaseOptions = {
     logging: true,
+    useFileNamesInStorage: true
 };
 
 
