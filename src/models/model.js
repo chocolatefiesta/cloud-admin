@@ -28,6 +28,11 @@ import {
     BooleanInput,
     DateField,
     RichTextField,
+    ReferenceArrayField,
+    SingleFieldList,
+    ChipField,
+    ReferenceArrayInput,
+    SelectArrayInput
 } from "react-admin";
 import RichTextInput from "ra-input-rich-text";
 
@@ -42,10 +47,15 @@ const ModelFilter = (props) => (
 export const ModelList = props => (
     <List {...props} filters={<ModelFilter />}>
         <Datagrid rowClick="edit">
-            <TextField source="name" label="Название"/>
+            <TextField source="name" label="Название" />
             <RichTextField source="description" label="Описание" />
-            <NumberField source="colors_num" label="Количество цветов"/>
+            <NumberField source="colors_num" label="Количество цветов" />
             <TextField source="print_time" label="Время печати, минут" />
+            <ReferenceArrayField label="Тэги" reference="storage/model-library/tags" source="tag_ids">
+                <SingleFieldList>
+                    <ChipField source="name" />
+                </SingleFieldList>
+            </ReferenceArrayField>
             <ShowButton label="" />
             <EditButton label="" />
             <DeleteButton label="" redirect={false} />
@@ -65,6 +75,11 @@ export const ModelShow = (props) => (
             <TextField source="createdby" label="Кем добавлено" />
             <DateField source="createdate" label="Дата создания" showTime={true} />
             <DateField source="lastupdate" label="Дата изменения" showTime={true} />
+            <ReferenceArrayField label="Тэги" reference="storage/model-library/tags" source="tag_ids">
+                <SingleFieldList>
+                    <ChipField source="name" />
+                </SingleFieldList>
+            </ReferenceArrayField>
             <ArrayField source="files" label="Файлы">
                 <Datagrid>
                     <FileField source="file.src" title="file.title" label="Файл" />
@@ -94,6 +109,11 @@ export const ModelCreate = (props) => (
                 { id: "Одноцветная", name: "Одноцветная" },
                 { id: "Двухцветная", name: "Двухцветная" },
             ]} />
+
+            <ReferenceArrayInput source="tag_ids" reference="storage/model-library/tags">
+                <SelectArrayInput optionText="name" />
+            </ReferenceArrayInput>
+
             <ArrayInput source="files">
                 <SimpleFormIterator>
                     <FileInput source="file" label="Файл">
@@ -126,10 +146,15 @@ export const ModelEdit = (props) => (
                 { id: "Одноцветная", name: "Одноцветная" },
                 { id: "Двухцветная", name: "Двухцветная" },
             ]} />
+
+            <ReferenceArrayInput source="tag_ids" reference="storage/model-library/tags">
+                <SelectArrayInput optionText="name" />
+            </ReferenceArrayInput>
+
             <ArrayInput source="files">
                 <SimpleFormIterator>
                     <FileInput source="file" label="Файл">
-                        <FileField source="src" title="title"/>
+                        <FileField source="src" title="title" />
                     </FileInput>
                     <TextInput source="name" label="Название файла" />
                 </SimpleFormIterator>
